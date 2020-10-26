@@ -1,1 +1,3 @@
-# imh-host
+# IMH
+
+IMH Image Host
