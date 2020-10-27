@@ -12,26 +12,21 @@ app.get('/*', (req, res) => {
 });
 
 app.post("/upload", upload.any(), async (req, res) => {
-  let file = req.files[0];
-    let path = "";
-    imgur
-      .uploadBase64(req.files[0].buffer.toString('base64'))
-      .then(function(json) {
-        let url = json.data.link;
-        url = url.split("/");
-        url = url[url.length - 1];
-        if(req.query.embed !== "true") {
-          url += "/i";
-        };
-        return res
-          .status(200)
-          .json({ data: { link: url } });
-      })
-      .catch(function(err) {
-        console.error(err.message);
-      });
+  imgur.uploadBase64(req.files[0].buffer.toString('base64')).then(function(json) {
+    let url = json.data.link;
+    url = url.split("/");
+    url = url[url.length - 1];
+      
+    if(req.query.embed !== "true") {
+      url += "/i";
+    };
+      
+    return res.status(200).json({ data: { link: url } });
+  }).catch(function(err) {
+    console.error(err.message);
+  });
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("IMH Online!")
+  console.log("IMH Online!");
 });
