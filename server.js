@@ -20,6 +20,9 @@ app.post("/upload", upload.any(), async (req, res) => {
         let url = json.data.link;
         url = url.split("/");
         url = url[url.length - 1];
+        if(req.query.embed !== "true") {
+          url += "/i";
+        };
         return res
           .status(200)
           .json({ data: { link: url } });
@@ -29,4 +32,6 @@ app.post("/upload", upload.any(), async (req, res) => {
       });
 });
 
-app.listen(process.env.PORT, () => console.log("IMH Online!"));
+app.listen(process.env.PORT, () => {
+  console.log("IMH Online!")
+});
