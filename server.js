@@ -16,9 +16,9 @@ app.post("/upload", upload.any(), async (req, res) => {
     let url = json.data.link;
     url = url.split("/");
     url = url[url.length - 1];
-      
+        
     if(req.query.embed !== "true") {
-      url += "/i";
+      url = "i/" + url;
     };
       
     return res.status(200).json({ data: { link: url } });
