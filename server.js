@@ -12,6 +12,7 @@ app.get('/*', (req, res) => {
 });
 
 app.post("/upload", upload.any(), async (req, res) => {
+  console.log(req.files[0]);
   imgur.uploadBase64(req.files[0].buffer.toString('base64')).then(function(json) {
     let url = json.data.link;
     url = url.split("/");
