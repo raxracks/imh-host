@@ -8,7 +8,7 @@ const imgur = require("imgur");
 imgur.setClientId(process.env.CLIENT_ID);
 
 app.get('/*', (req, res) => {
-  res.redirect("https://imh-client.glitch.me" + req.path);
+  res.redirect("https://imh.herokuapp.com" + req.path);
 });
 
 app.post("/upload", upload.any(), async (req, res) => {
