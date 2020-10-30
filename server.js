@@ -44,6 +44,10 @@ app.post("/upload", upload.any(), async (req, res) => {
     stats["size"] += Math.floor(req.files[0].size);
     jsonfile.writeFileSync("stats.json", stats);
     
+    if(req.query.frontend == "true") {
+      res.redirect(url);
+    };
+    
     return res.status(200).json({ data: { link: url } });
   }).catch(function(err) {
     console.error(err.message);
