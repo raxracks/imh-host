@@ -5,6 +5,7 @@ const upload = multer();
 const app = express();
 const imgur = require('imgur');
 const jsonfile = require('jsonfile');
+const cors = require('cors');
 
 app.enable('trust proxy');
 app.use(function(request, response, next) {
@@ -13,6 +14,8 @@ app.use(function(request, response, next) {
   } 
   next();
 });  
+
+app.use(cors());
 
 imgur.setClientId(process.env.CLIENT_ID);
 
