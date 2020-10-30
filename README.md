@@ -1,6 +1,6 @@
 # IMH Host
 
-IMH is an Imgur parse through that accepts calls to upload and serves a frontend and screenshot extension. The IMH Hot WILL NOT provide a frontend user experience, only the [client](https://github.com/raxracks/imh-client) can do that.
+IMH is an Imgur parse through that accepts calls to upload and serves a frontend and screenshot extension. The IMH Host WILL NOT provide a frontend user experience, only the [client](https://github.com/raxracks/imh-client) can do that.
 
 ## Setup
 
