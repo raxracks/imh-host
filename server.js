@@ -7,6 +7,10 @@ const imgur = require("imgur");
 
 imgur.setClientId(process.env.CLIENT_ID);
 
+app.get('/', (req, res) => {
+  res.send("IMH UP");
+});
+
 app.get('/*', (req, res) => {
   res.redirect("https://imh.herokuapp.com" + req.path);
 });
