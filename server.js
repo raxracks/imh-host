@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
   res.send("IMH UP");
 });
 
-app.get('/stats', (req, res) => {
+app.get('/stats/:type', (req, res) => {
   let stats = jsonfile.readFileSync("stats.json");
-  res.send(stats.uploads.toString() + "<br>" + stats.fileSize.toString());
+  res.send(stats[req.params.type].toString());
 });
 
 app.get('/*', (req, res) => {
@@ -41,7 +41,7 @@ app.post("/upload", upload.any(), async (req, res) => {
       
     let stats = jsonfile.readFileSync("stats.json");
     stats["uploads"]++;
-    stats["fileSize"] += Math.floor(req.headers['content-length']);
+    stats["size"] += Math.floor(req.files[0].size);
     jsonfile.writeFileSync("stats.json", stats);
     
     return res.status(200).json({ data: { link: url } });
