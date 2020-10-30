@@ -12,7 +12,7 @@ app.use(function(request, response, next) {
     response.redirect("https://" + request.headers.host + request.url) 
   } 
   next();
-});
+});  
 
 imgur.setClientId(process.env.CLIENT_ID);
 
@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 app.get('/stats', (req, res) => {
   let stats = jsonfile.readFileSync("stats.json");
-  res.send(stats.uploads.toString());
+  res.send(stats.uploads.toString() + "<br>" + stats.fileSize.toString());
 });
 
 app.get('/*', (req, res) => {
@@ -41,6 +41,7 @@ app.post("/upload", upload.any(), async (req, res) => {
       
     let stats = jsonfile.readFileSync("stats.json");
     stats["uploads"]++;
+    stats["fileSize"] += req.headers['content-length'];
     jsonfile.writeFileSync("stats.json", stats);
     
     return res.status(200).json({ data: { link: url } });
