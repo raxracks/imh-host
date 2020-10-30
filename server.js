@@ -41,7 +41,7 @@ app.post("/upload", upload.any(), async (req, res) => {
       
     let stats = jsonfile.readFileSync("stats.json");
     stats["uploads"]++;
-    stats["fileSize"] += req.headers['content-length'];
+    stats["fileSize"] += Math.floor(req.headers['content-length']);
     jsonfile.writeFileSync("stats.json", stats);
     
     return res.status(200).json({ data: { link: url } });
