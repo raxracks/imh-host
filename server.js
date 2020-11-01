@@ -30,9 +30,15 @@ app.get('/stats/:type', (req, res) => {
 });
 
 app.get('/stats/:type/add', (req, res) => {
-  let amount = req.query.amount;
+  let amount = Math.floor(req.query.amount);
   let stats = jsonfile.readFileSync("stats.json");
+  let statsBackup = jsonfile.readFileSync("statsBackup.json");
   stats[req.params.type] += Math.floor(amount);
+  if(stats[req.params.type] < statsBackup[req.params.type]) {
+    stats = statsBackup;
+  } else {
+    jsonfile.writeFileSync("statsBackup.json", stats);
+  }
   jsonfile.writeFileSync("stats.json", stats);
   res.send("Done");
 });
