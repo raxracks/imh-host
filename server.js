@@ -6,6 +6,7 @@ const app = express();
 const imgur = require('imgur');
 const jsonfile = require('jsonfile');
 const cors = require('cors');
+const fetch = require('node-fetch');
 
 app.enable('trust proxy');
 app.use(function(request, response, next) {
@@ -28,6 +29,14 @@ app.get('/stats/:type', (req, res) => {
   res.send(stats[req.params.type].toString());
 });
 
+app.get('/stats/:type/add', (req, res) => {
+  let amount = req.query.amount;
+  let stats = jsonfile.readFileSync("stats.json");
+  stats[req.params.type] += Math.floor(amount);
+  jsonfile.writeFileSync("stats.json", stats);
+  res.send("Done");
+});
+
 app.get('/*', (req, res) => {
   res.redirect("https://imh.herokuapp.com" + req.path);
 });
@@ -42,10 +51,17 @@ app.post("/upload", upload.any(), async (req, res) => {
       url = "i/" + url;
     };
       
-    let stats = jsonfile.readFileSync("stats.json");
-    stats["uploads"]++;
-    stats["size"] += Math.floor(req.files[0].size);
-    jsonfile.writeFileSync("stats.json", stats);
+    fetch("https://imh-host.glitch.me/stats/uploads/add?amount=1").then(function(response) {
+      response.text().then((text) => {
+        
+      });
+    });
+    
+    fetch("https://imh-host.glitch.me/stats/size/add?amount=" + req.files[0].size).then(function(response) {
+      response.text().then((text) => {
+        
+      });
+    });
     
     if(req.query.frontend == "true") {
       res.redirect(url);
