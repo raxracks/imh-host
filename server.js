@@ -58,17 +58,17 @@ app.post("/upload", upload.any(), async (req, res) => {
       url = "i/" + url;
     };
       
-    fetch("https://imh-host.glitch.me/stats/uploads/add?amount=1").then(function(response) {
-      response.text().then((text) => {
+//     fetch("https://imh-host.glitch.me/stats/uploads/add?amount=1").then(function(response) {
+//       response.text().then((text) => {
         
-      });
-    });
+//       });
+//     });
     
-    fetch("https://imh-host.glitch.me/stats/size/add?amount=" + req.files[0].size).then(function(response) {
-      response.text().then((text) => {
+//     fetch("https://imh-host.glitch.me/stats/size/add?amount=" + req.files[0].size).then(function(response) {
+//       response.text().then((text) => {
         
-      });
-    });
+//       });
+//     });
     
     if(req.query.frontend == "true") {
       res.redirect(url);
