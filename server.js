@@ -75,7 +75,7 @@ app.post("/upload", upload.any(), async (req, res) => {
     };
     
     if(!!req.query.customURL) {
-      url = `<${req.query.customURL}>${magic}https://imh.herokuapp.com/${url}`;  
+      url = `<${req.query.customURL}/${url}>${magic}https://imh.herokuapp.com/${url}`;  
     }
     
     return res.status(200).json({ data: { link: url } });
