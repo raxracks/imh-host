@@ -1,14 +1,13 @@
-const express = require("express");
 const fs = require("fs");
-const multer = require("multer");
-const upload = multer();
-const app = express();
+const upload = require("multer")();
+const app = require("express")();
 const imgur = require("imgur");
 const jsonfile = require("jsonfile");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const magic =
   " ||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​|| ";
+const client = "https://imh.glitch.me"
 
 app.enable("trust proxy");
 app.use(function(request, response, next) {
@@ -46,7 +45,7 @@ app.get("/stats/:type/add", (req, res) => {
 });
 
 app.get("/*", (req, res) => {
-  res.redirect("https://imh.glitch.me" + req.path);
+  res.redirect(client + req.path);
 });
 
 app.post("/upload", upload.any(), async (req, res) => {
@@ -61,23 +60,11 @@ app.post("/upload", upload.any(), async (req, res) => {
         url = "i/" + url;
       }
 
-      fetch("https://imh-host.glitch.me/stats/uploads/add?amount=1").then(
-        function(response) {
-          response.text().then(text => {});
-        }
-      );
-
-      fetch(
-        "https://imh-host.glitch.me/stats/size/add?amount=" + req.files[0].size
-      ).then(function(response) {
-        response.text().then(text => {});
-      });
-
       if (req.query.frontend == "true") {
         res.redirect(url);
       }
 
-      if (!!req.query.customURL) {
+      if (req.query.customURL) {
         url = `<${req.query.customURL}/${url}>${magic}https://imh.glitch.me/${url}`;
       }
 
