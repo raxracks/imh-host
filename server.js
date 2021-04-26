@@ -61,7 +61,7 @@ app.post("/upload", upload.any(), async (req, res) => {
       }
 
       if (req.query.customURL) {
-        url = `<${req.query.customURL}/${url}>${magic}https://imh.glitch.me/${url}`;
+        url = `<${req.query.customURL}/${url.split("/m/")[0]}>${magic}https://imh.glitch.me/${url}`;
       }
 
       fetch(
