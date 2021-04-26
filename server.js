@@ -52,6 +52,10 @@ app.post("/upload", upload.any(), async (req, res) => {
         url = "i/" + url;
       }
 
+      if (req.query.message !== undefined) {
+        url += "/m/" + encodeURI(req.query.message);
+      }
+
       if (req.query.frontend == "true") {
         res.redirect(url);
       }
